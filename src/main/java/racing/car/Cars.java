@@ -1,7 +1,5 @@
 package racing.car;
 
-import racing.ui.ResultView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,22 +10,6 @@ public class Cars {
         cars = new ArrayList<>();
         for (String carName : carNames) {
             cars.add(new Car(carName));
-        }
-    }
-
-    private void race() {
-        for (Car car : cars) {
-            car.race();
-        }
-    }
-
-    public void race(int tryCount) {
-        ResultView.printTitle();
-
-        for (int i = 0; i < tryCount; i++) {
-            ResultView.printTryCount(i + 1);
-            race();
-            ResultView.printCars(this);
         }
     }
 
@@ -64,5 +46,17 @@ public class Cars {
             maxPosition = Math.max(maxPosition, car.getPosition());
         }
         return maxPosition;
+    }
+
+    public void race(List<Boolean> movables) {
+        for (int i = 0; i < cars.size(); i++) {
+            if (movables.get(i)) {
+                cars.get(i).move();
+            }
+        }
+    }
+
+    public int getSize() {
+        return cars.size();
     }
 }

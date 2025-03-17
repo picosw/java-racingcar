@@ -7,6 +7,7 @@ import racing.car.Car;
 import racing.car.Cars;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -18,20 +19,24 @@ public class RacingGameTest {
     @ParameterizedTest
     @CsvSource(value = {"1:false", "2:false", "3:false", "4:true", "5:true", "6:true", "7:true", "8:true", "9:true"}, delimiter = ':')
     void movableTest(int number, boolean expected) {
-        Car car = new Car("pobi");
-        assertThat(car.movable(number)).isEqualTo(expected);
+        assertThat(RacingGame.movable(number)).isEqualTo(expected);
     }
 
     @Test
     void raceTest() {
-        int tryCount = 5;
+
         Cars cars = new Cars(CAR_NAMES);
-        cars.race(tryCount);
+        cars.race(List.of(true, false, true));
+        cars.race(List.of(true, true, true));
+        cars.race(List.of(false, false, true));
+        cars.race(List.of(false, true, true));
+        cars.race(List.of(true, false, true));
+
         List<Integer> positions = cars.getPositions();
 
-        for (Integer position : positions) {
-            assertThat(position).isBetween(0, tryCount);
-        }
+        assertThat(positions.get(0)).isEqualTo(3);
+        assertThat(positions.get(1)).isEqualTo(2);
+        assertThat(positions.get(2)).isEqualTo(5);
     }
 
     @Test
@@ -41,15 +46,21 @@ public class RacingGameTest {
 
     @Test
     void winnerTest() {
-        int tryCount = 5;
         Cars cars = new Cars(CAR_NAMES);
 
-        cars.race(tryCount);
-        int maxPosition = cars.getMaxPosition();
+        cars.race(List.of(true, true, true));
+        cars.race(List.of(true, true, true));
+        cars.race(List.of(false, true, true));
+        cars.race(List.of(false, true, true));
+
         List<Car> winners = cars.getWinners();
 
-        for (Car winner : winners) {
-            assertThat(winner.getPosition()).isEqualTo(maxPosition);
-        }
+        assertThat(winners.size()).isEqualTo(2);
+
+        List<String> winnerNames = winners.stream()
+                .map(car -> car.getName().toString())
+                .collect(Collectors.toList());
+
+        assertThat(winnerNames).contains("crong", "honux");
     }
 }

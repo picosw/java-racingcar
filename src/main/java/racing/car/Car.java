@@ -1,10 +1,7 @@
 package racing.car;
 
-import racing.random.RandomNumberFactory;
-
 public class Car {
 
-    private static final int MOVE_THRESHOLD = 4;
     private int position;
     private CarName name;
 
@@ -14,22 +11,8 @@ public class Car {
 
     }
 
-    public void race() {
-        if (movable()) {
-            move();
-        }
-    }
-
-    private void move() {
+    public void move() {
         position++;
-    }
-
-    private boolean movable() {
-        return movable(RandomNumberFactory.createRandomNumber());
-    }
-
-    public boolean movable(int number) {
-        return number >= MOVE_THRESHOLD;
     }
 
     public CarName getName() {

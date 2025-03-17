@@ -10,7 +10,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RacingGameTest {
 
@@ -28,16 +27,11 @@ public class RacingGameTest {
         int tryCount = 5;
         Cars cars = new Cars(CAR_NAMES);
         cars.race(tryCount);
-        List<String> positionStrings = cars.getPositionStrings();
+        List<Integer> positions = cars.getPositions();
 
-        for (String positionString : positionStrings) {
-            assertTrue(isDashOnly(positionString));
-            assertThat(positionString.length()).isBetween(0, tryCount);
+        for (Integer position : positions) {
+            assertThat(position).isBetween(0, tryCount);
         }
-    }
-
-    private boolean isDashOnly(String input) {
-        return input.matches("^-*$");
     }
 
     @Test

@@ -4,7 +4,6 @@ import racing.random.RandomNumberFactory;
 
 public class Car {
 
-    private static final String POSITION_SYMBOL = "-";
     private static final int MOVE_THRESHOLD = 4;
     private int position;
     private CarName name;
@@ -31,10 +30,6 @@ public class Car {
 
     public boolean movable(int number) {
         return number >= MOVE_THRESHOLD;
-    }
-
-    public String getPositionString() {
-        return POSITION_SYMBOL.repeat(position);
     }
 
     public CarName getName() {

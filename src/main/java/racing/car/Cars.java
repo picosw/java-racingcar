@@ -31,12 +31,12 @@ public class Cars {
         }
     }
 
-    public List<String> getPositionStrings() {
-        List<String> positionStrings = new ArrayList<>();
+    public List<Integer> getPositions() {
+        List<Integer> positions = new ArrayList<>();
         for (Car car : cars) {
-            positionStrings.add(car.getPositionString());
+            positions.add(car.getPosition());
         }
-        return positionStrings;
+        return positions;
     }
 
     public List<CarName> getCarNames() {

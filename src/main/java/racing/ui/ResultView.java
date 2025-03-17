@@ -8,6 +8,8 @@ import java.util.List;
 
 public class ResultView {
 
+    private static final String POSITION_SYMBOL = "-";
+
     public static void printTitle() {
         System.out.println();
         System.out.println("실행 결과");
@@ -18,14 +20,18 @@ public class ResultView {
     }
 
     public static void printCars(Cars cars) {
-        List<String> positionStrings = cars.getPositionStrings();
+        List<Integer> positions = cars.getPositions();
         List<CarName> carNames = cars.getCarNames();
 
-        for (int i = 0; i < positionStrings.size(); i++) {
+        for (int i = 0; i < positions.size(); i++) {
             System.out.print(carNames.get(i) + " : ");
-            System.out.println(positionStrings.get(i));
+            printPosition(positions.get(i));
         }
         System.out.println();
+    }
+
+    private static void printPosition(int position) {
+        System.out.println(POSITION_SYMBOL.repeat(position));
     }
 
     public static void printWinners(List<Car> winners) {
